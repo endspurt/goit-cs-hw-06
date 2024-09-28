@@ -23,7 +23,7 @@
    - Um die Anwendung zu starten, führe in deinem Projektordner folgenden Befehl aus
      
      docker-compose up --build
-     ```
+     
     Dies erstellt und startet sowohl den HTTP-Server als auch den Socket-Server in Docker-Containern, wobei MongoDB ebenfalls bereitgestellt wird.
 
 2. **Zugriff auf die Anwendung**

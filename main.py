@@ -3,7 +3,7 @@ import socketserver
 import socket
 import json
 import datetime
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs
 
 PORT = 3000
 
