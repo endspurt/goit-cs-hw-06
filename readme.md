@@ -1,5 +1,3 @@
-### Aktualisierter Code mit Kommentaren auf Ukrainisch
-
 ### Schrittweise Erklärung
 
 1. **HTTP-Server (main.py)**
