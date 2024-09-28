@@ -10,6 +10,25 @@ from urllib.parse import parse_qs
 PORT = 3000
 # Шлях до директорії з файлами "storage"
 STORAGE_PATH = 'front-init/storage'
+# Шлях до файлу data.json
+DATA_FILE = os.path.join(STORAGE_PATH, 'data.json')
+
+# Функція для читання даних з файлу data.json
+def read_data():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, 'r', encoding='utf-8') as file:
+            try:
+                return json.load(file)
+            except json.JSONDecodeError:
+                return []
+    return []
+
+# Функція для запису даних у файл data.json
+def write_data(new_message):
+    data = read_data()
+    data.append(new_message)
+    with open(DATA_FILE, 'w', encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
 
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     # Обробка GET-запитів (запит сторінок або файлів)
@@ -58,6 +77,9 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             # Відправляємо дані на сокет-сервер через UDP
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             sock.sendto(json.dumps(message_data).encode('utf-8'), ('localhost', 5000))
+
+            # Зберігаємо повідомлення у файл data.json
+            write_data(message_data)
 
             # Повертаємо відповідь клієнту після успішного надсилання
             self.send_response(200)
